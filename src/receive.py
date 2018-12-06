@@ -9,4 +9,5 @@ server_socket.bind(('', 12000))
 while True:
     message, address = server_socket.recvfrom(4096)
     print("got message from address", address)
-    predict_proba(data_sample=json.loads(message.decode()))
+    final = predict_proba(data_sample=json.loads(message.decode()))
+    print(final)
