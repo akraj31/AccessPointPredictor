@@ -14,20 +14,16 @@ def predict_proba(data_sample=None):
     rf = dict(zip(lp_rf.classes_, lp_rf.predict_proba(data_sample)[0]))
     xgb = dict(zip(lp_xgb.classes_, lp_xgb.predict_proba(data_sample)[0]))
     nn = dict(zip(lp_nn.classes_, lp_nn.predict_proba(data_sample)[0]))
+    
     print(rf, xgb, nn)
-    final = rf
-    for k,v in xgb.items():
-        final[k] += v
-    for k,v in nn.items():
-        final[k] += v
+    final = dict(rf)
+    for k in final:
+        final[k] = 0
+    final[max(rf, key=rf.get)] += 1
+    final[max(xgb, key=rf.get)] += 1
+    final[max(nn, key=rf.get)] += 1
 
-    max_v = -1
-    max_k = None
-    for k,v in final.items():
-        if v>max_v:
-            max_v = v
-            max_k = k
-    print("Final Prediction: ", max_k)
+    return max(final, key=final.get)
 
 def predict(data_sample=None):
     if not data_sample:
