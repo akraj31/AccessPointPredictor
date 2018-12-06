@@ -43,7 +43,7 @@ def get_model(model):
         lp = pickle.load(f)
     return lp
 
-
-train_random_forest()
-train_xgb()
-train_model_neural_network()
+def train_all():
+    train_random_forest()
+    train_xgb()
+    train_model_neural_network()
