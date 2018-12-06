@@ -18,7 +18,7 @@ def get_sample(device=""):
 
 
 def write_data(label_path, data):
-    with open(label_path, "w") as f:
+    with open(label_path, "a") as f:
         f.write(json.dumps(data))
         f.write("\n")
 
@@ -41,10 +41,15 @@ def get_training_data():
     X, y = list(), list()
     files = os.listdir("../data/")
     for fname in files:
+        #print("filename", fname)
+        if fname[-4:]!=".txt":
+            continue
         data = list()
         with open(os.path.join("../data/", fname)) as f:
             for line in f:
-            	data.append(json.loads(line))
+                #print(line)
+                #print(type(line))
+                data.append(json.loads(line))
         X.extend(data)
         y.extend([fname.rstrip(".txt")] * len(data))
     return X, y

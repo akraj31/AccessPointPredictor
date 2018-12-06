@@ -1,11 +1,11 @@
 import json
 from collections import Counter
-from data import get_training_data, sample, get_external_sample, aps_to_dict
+from data import get_training_data, get_sample, get_external_sample, aps_to_dict
 from access_points import get_scanner
 from classifier import get_model
 
 def predict_proba(device=""):
-    data_sample = sample(device) 
+    data_sample = get_sample() 
     lp_rf = get_model("rf")
     lp_xgb = get_model("xgb")
     lp_nn = get_model("nn")
@@ -15,17 +15,17 @@ def predict_proba(device=""):
 
 
 def predict(device=""):
-    data_sample = sample(device)
+    data_sample = get_sample()
     lp_rf = get_model("rf")
     lp_xgb = get_model("xgb")
     lp_nn = get_model("nn")
     print(lp_rf.predict(data_sample)[0])
     print(lp_xgb.predict(data_sample)[0])
     print(lp_nn.predict(data_sample)[0]) 
-    return lp.predict(data_sample)[0]
+    #return lp.predict(data_sample)[0]
 
 def locations(path=None):
-    _, y = get_train_data()
+    _, y = get_training_data()
     occurrences = Counter(y)
     for key, value in occurrences.items():
         print("{}: {}".format(key, value))
