@@ -7,7 +7,7 @@ from data import get_training_data
 
 def train_random_forest(X, y):
     model_file = "../data/rf.pkl"
-    X, y = get_training_data(path)
+    X, y = get_training_data()
     lp = make_pipeline(DictVectorizer(sparse=False), RandomForestClassifier(n_estimators=100, class_weight="balanced"))
     lp.fit(X, y)
     with open(model_file, "wb") as f:
@@ -16,7 +16,7 @@ def train_random_forest(X, y):
 
 def train_xgb(X, y):
     model_file = "../data/xgb.pkl"
-    X, y = get_train_data(path)
+    X, y = get_train_data()
     if len(X) == 0:
         raise ValueError("No wifi access points have been found during training")
     lp = make_pipeline(DictVectorizer(sparse=False), RandomForestClassifier(n_estimators=100, class_weight="balanced"))
@@ -28,7 +28,7 @@ def train_xgb(X, y):
 
 def train_model_neural_network(X, y):
     model_file = "../data/nn.pkl"
-    X, y = get_train_data(path)
+    X, y = get_train_data()
     if len(X) == 0:
         raise ValueError("No wifi access points have been found during training")
     lp = make_pipeline(DictVectorizer(sparse=False), RandomForestClassifier(n_estimators=100, class_weight="balanced"))
@@ -37,7 +37,7 @@ def train_model_neural_network(X, y):
         pickle.dump(lp, f)
     return lp
 
-def get_model(model="rf"):
+def get_model(model):
     model_file = "../data/" + model
     with open(model_file, "rb") as f:
         lp = pickle.load(f)
