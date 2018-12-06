@@ -10,9 +10,24 @@ def predict_proba(data_sample=None):
     lp_rf = get_model("rf")
     lp_xgb = get_model("xgb")
     lp_nn = get_model("nn")
-    print(json.dumps(dict(zip(lp_rf.classes_, lp_rf.predict_proba(data_sample)[0]))))
-    print(json.dumps(dict(zip(lp_xgb.classes_, lp_xgb.predict_proba(data_sample)[0]))))
-    print(json.dumps(dict(zip(lp_nn.classes_, lp_nn.predict_proba(data_sample)[0]))))
+
+    rf = dict(zip(lp_rf.classes_, lp_rf.predict_proba(data_sample)[0]))
+    xgb = dict(zip(lp_xgb.classes_, lp_xgb.predict_proba(data_sample)[0]))
+    nn = dict(zip(lp_nn.classes_, lp_nn.predict_proba(data_sample)[0]))
+    print(rf, xgb, nn)
+    final = rf
+    for k,v in xgb.items():
+        final[k] += v
+    for k,v in nn.items():
+        final[k] += v
+
+    max_v = -1
+    max_k = None
+    for k,v in final.items():
+        if v>max_v:
+            max_v = v
+            max_k = k
+    print("Final Prediction: ", max_k)
 
 def predict(data_sample=None):
     if not data_sample:

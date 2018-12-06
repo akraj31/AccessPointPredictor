@@ -4,8 +4,8 @@ from classifier import train_all
 print("Printing the access point data")
 locations()
 
-print("Training the models")
-train_all()
+#print("Training the models")
+#train_all()
 
 #print("Predicting the current location")
 #predict()
