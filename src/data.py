@@ -34,7 +34,7 @@ def collect_data(label, duration):
             new_sample = get_sample()
             if new_sample:
                 write_data(label_path, new_sample)
-        except KeyboardInterrupt:  # pragma: no cover
+        except KeyboardInterrupt:
             break
 
 def get_training_data():
@@ -48,16 +48,6 @@ def get_training_data():
         X.extend(data)
         y.extend([fname.rstrip(".txt")] * len(data))
     return X, y
-
-def sample(device=""):
-    wifi_scanner = get_scanner(device)
-    if not os.environ.get("PYTHON_ENV", False):
-        aps = wifi_scanner.get_access_points()
-    else:
-        aps = [{"quality": 100, "bssid": "XX:XX:XX:XX:XX:84",
-                "ssid": "X", "security": "XX"}]
-    return aps_to_dict(aps)
-
 
 def get_external_sample(path):
     data = list()
