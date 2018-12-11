@@ -15,7 +15,7 @@ def predict_proba(data_sample=None):
     xgb = dict(zip(lp_xgb.classes_, lp_xgb.predict_proba(data_sample)[0]))
     nn = dict(zip(lp_nn.classes_, lp_nn.predict_proba(data_sample)[0]))
     
-    print(rf, xgb, nn)
+    #print(rf, xgb, nn)
     final = dict(rf)
     for k in final:
         final[k] = 0
@@ -39,5 +39,8 @@ def predict(data_sample=None):
 def locations(path=None):
     _, y = get_training_data()
     occurrences = Counter(y)
+    location = list()
     for key, value in occurrences.items():
         print("{}: {}".format(key, value))
+        location.append(key)
+    return location
